@@ -3,12 +3,22 @@
     {% for movie in movie_list %}
 
 
-        <div class="col-xs-12 col-sm-4 col-md-2 col-lg-2">
-            <a href="/movie/{{movie.id}}">
+        <!-- <div class="col-md-3">
+            <a class="list-group-item list-group-item-action active" href="/movie/{{movie.id}}">
                 <li style="list-style: none">{{movie.title}}</li>
             </a>
-            <img class="img-responsive" src="{{movie.poster}}" alt="">
-        </div>
+            <a class='list-group-item list-group-item-action' href="/movie/{{movie.id}}">
+                <img class="img-responsive" src="{{movie.poster}}" alt="">
+            </a>
+            
+        </div> -->
+
+    <div class="card mb-3 col-md-3">
+        <a class="list-group-item list-group-item-action active" href="/movie/{{movie.id}}">
+            <li style="list-style: none">{{movie.title}}</li>
+        </a>
+        <img style="height: auto; width: 100%; display: block;" src="{{movie.poster}}" alt="{{movie.title}}">
+    </div>
         
         
     {% endfor %}

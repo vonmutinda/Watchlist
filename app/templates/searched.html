@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% import 'macros.html' as macro %}
+
+{% block body %}
+<div class="row">
+    <h3> Found the following {{ searched |count  }} movie matches </h3>
+
+        {{ macro.displayMovieList(searched) }}
+
+</div>
+    
+{% endblock %}

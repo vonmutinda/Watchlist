@@ -1,4 +1,4 @@
-from flask import render_template
+from flask import render_template , request , redirect , url_for
 from app import app
 from .request import get_movies , get_movie ,search_movie
 
@@ -15,9 +15,15 @@ def index():
     # print(popular_ones)
     upcoming_movie = get_movies('upcoming')
 
-    return render_template('index.html',title = title, popular = popular_ones, upcoming = upcoming_movie)
+    search_movie = request.args.get('movie-query')
+
+    if search_movie :
+        return redirect(url_for('search_this_movie',movie_name=search_movie))
+    else:
+        return render_template('index.html',title = title, popular = popular_ones, upcoming = upcoming_movie)
 
 
+#    ********** VIEWS FOR THE ABOUT PAGE *********** 
 '''
     The about page . Rendered whenever about is added to path
 '''
@@ -48,4 +54,9 @@ def search_this_movie(movie_name):
 
     title = f" Search Results for {movie_name}"
 
-    return render_template('searched.html', searched = searched , title = title )
+    # queried = request.args.get('movie-query')
+
+    # if queried :
+    #     return redirect(url_for('search_this_movie',movie_name=search_movie ,searched = searched))
+    # else:
+    return render_template('searched.html', searched = searched , title = title , search = movie_name )

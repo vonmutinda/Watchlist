@@ -4,7 +4,7 @@
 <div class="container-fluid">
         {% block body %}
 
-        <h3 class="card-header center" > Found the following {{ searched |count  }} movie matches </h3>
+        <h3 class="card-header center" > Found the following {{ searched |count  }} movie matches for {{ search }} </h3>
         
         <div class="row">
             {{ macro.displayMovieList(searched) }}

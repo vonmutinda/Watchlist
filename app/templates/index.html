@@ -1,15 +1,17 @@
 {% extends 'base.html' %}
 {% import 'macros.html' as macro %}
 
-{% block body %}
 
+
+
+{% block body %}
+<div class="container-fluid">
 <hr>
 
 <div class="card-header center">
         <h3>Popular Movies</h3>
 </div>
 <div class="row">
-  
      {{ macro.displayMovieList(popular) }}
 </div>
 
@@ -22,7 +24,15 @@
         {{ macro.displayMovieList(upcoming) }}
 </div>
 
+<hr>
+
+<div class="card-header center">
+        <h3>Now Showing </h3>
+</div>
+<div id="upcoming" class="row">
+        {{ macro.displayMovieList(nowshowing) }}
+</div>
 
 
-
+</div>
 {% endblock %}

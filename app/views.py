@@ -10,17 +10,17 @@ from .request import get_movies , get_movie ,search_movie
 def index():
     title = 'pythonFlask App'
 
-    #get popular movies
+    #get popular , upcoming and nowshowing movies
     popular_ones = get_movies('popular')
-    # print(popular_ones)
     upcoming_movie = get_movies('upcoming')
+    nowshowing = get_movies('now_playing')
 
     search_movie = request.args.get('movie-query')
 
     if search_movie :
         return redirect(url_for('search_this_movie',movie_name=search_movie))
     else:
-        return render_template('index.html',title = title, popular = popular_ones, upcoming = upcoming_movie)
+        return render_template('index.html',title = title, popular = popular_ones, upcoming = upcoming_movie , nowshowing=nowshowing)
 
 
 #    ********** VIEWS FOR THE ABOUT PAGE *********** 
@@ -53,10 +53,4 @@ def search_this_movie(movie_name):
     searched = search_movie(movie_format)
 
     title = f" Search Results for {movie_name}"
-
-    # queried = request.args.get('movie-query')
-
-    # if queried :
-    #     return redirect(url_for('search_this_movie',movie_name=search_movie ,searched = searched))
-    # else:
     return render_template('searched.html', searched = searched , title = title , search = movie_name )

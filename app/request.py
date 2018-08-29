@@ -44,6 +44,9 @@ def process_results(movie_response):
     return movie_results
 
 
+'''
+    grab a single movie via id
+'''
 
 def get_movie(id):
     details_url = base_url.format(id,api_key)
@@ -67,3 +70,23 @@ def get_movie(id):
             movie_object = Movie(ide,title,overview,poster,vote_average,vote_count)
 
     return movie_object
+
+
+'''
+    a function that searches for movies from the database
+'''
+
+def search_movie(movie_keyword):
+    search_url = 'https://api.themoviedb.org/3/search/movie/{}?api_key={}'.format(movie_keyword,api_key)
+
+    with urllib.request.urlopen(search_url) as url:
+        movie_data = url.read()
+        movie_response = json.loads(movie_data)
+
+        search_results = None
+
+        if movie_response ['results']:
+            search_list = movie_response['results']
+            search_results = process_results(search_list)
+
+    return search_results

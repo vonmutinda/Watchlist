@@ -2,6 +2,11 @@ from flask import render_template , request , redirect , url_for
 from app import app
 from .request import get_movies , get_movie ,search_movie
 
+from .models import reviews
+from .forms import ReviewForm
+
+Review = reviews.Review
+
     # *** OUR VIEWS ***
 '''
     Firts function to be called once the app fires
@@ -37,7 +42,9 @@ def movie(movie_id):
     movie = get_movie(movie_id)
     title = f'{movie.title}'
 
-    return render_template('movie.html',movie=movie ,title=title )
+    reviews = Review.get_review(movie_id)
+
+    return render_template('movie.html',movie=movie ,title=title ,reviews = reviews )
 
 
 '''
@@ -54,3 +61,22 @@ def search_this_movie(movie_name):
 
     title = f" Search Results for {movie_name}"
     return render_template('searched.html', searched = searched , title = title , search = movie_name )
+
+
+@app.route('/movie/review/new/<int:id>' , methods = ['GET' , 'POST']) 
+def new_review(id):
+    form = ReviewForm()
+    movie = get_movie(id)
+
+    if form.validate_on_submit():
+        title = form.title.data
+        review = form.review.data
+
+        new_review = Review(movie.id ,title,movie.poster,review)
+        new_review.save_review()
+
+        return redirect(url_for('movie', movie_id = movie.id))
+
+    title = f'{movie.title} Review'
+
+    return render_template('new_review.html',form =form ,movie=movie)

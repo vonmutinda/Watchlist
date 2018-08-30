@@ -3,22 +3,36 @@
 {% import 'macros.html' as macro %}
 
 <div class="container-fluid">
-    
+
         {% block body %}
 
 
         <div class="row">
-            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 posterPath" style="height:600px;background: url({{movie.poster}}) no-repeat center">
+            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6" style="height:600px;background: url({{movie.poster}}) no-repeat center">
             </div>
     
             <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 movie-details">
                 <h3>{{ movie.title }}</h3>
     
-                <p class="overview"> {{ movie.overview }}</p>
+                <a class="overview"> {{ movie.overview }}</a>
                 <p class="ratings"> <b> {{ movie.vote_average }}</b> - <i>{{ movie.vote_count}} votes </i> </p>
+                <a href="/movie/review/new/{{movie.id}}"> Write a Review </a>
             </div>
         </div>
-        
+        <hr>
+        <div class="row">
+            <h3>Reviews</h3>
+            <br>
+            {% if reviews %}
+
+                {{macro.displayReviews(reviews)}}
+
+            {% else %}
+            <hr>
+                <h2>This movie has no reviews</h2>
+
+            {% endif %}
+        </div>
         
     {% endblock %}
 </div>

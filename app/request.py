@@ -2,12 +2,13 @@ from app import app
 import urllib.request , json
 from .models import movie
 
-# api_key = app.config[]
-api_key = 'd06d2ddbf8bcece8cb4d618c139b2bcf'
+api_key = app.config['MOVIE_API_KEY']
+# api_key = 'd06d2ddbf8bcece8cb4d618c139b2bcf'
 
 Movie = movie.Movie
 
 base_url = 'https://api.themoviedb.org/3/movie/{}?api_key={}'
+# base_url = app.config['MOVIE_API_BASE_URL']
 
 def get_movies(category):
     

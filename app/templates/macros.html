@@ -19,11 +19,11 @@
 {% macro displayReviews(reviews) %}
 
     {% for review in reviews %}
-        <div class="card border-secondary mb-3" style="max-width: 20rem;">
-                <div class="card-header"> {{reviews.title}} </div>
+        <div class="card text-white bg-primary mb-3 col-md-3 " style="">
+                <div class="card-header"> {{review.title}} </div>
                 <div class="card-body">
-                  <h4 class="card-title"> {{ reviews.review }} </h4> 
-                   <p class="card-text"> {{ reviews.review | truncate(30) }} </p>
+                  <!-- <h4 class="card-title"> {{ reviews.review }} </h4>  -->
+                   <p class="card-text"> {{ review.review }} </p>
                 </div>
         </div>
     {% endfor %}

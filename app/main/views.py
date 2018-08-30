@@ -1,17 +1,17 @@
 from flask import render_template , request , redirect , url_for
-from app import app
-from .request import get_movies , get_movie ,search_movie
+from . import main
+from ..request import get_movies , get_movie ,search_movie
 
-from .models import reviews
+from ..models import Review
 from .forms import ReviewForm
 
-Review = reviews.Review
+
 
     # *** OUR VIEWS ***
 '''
-    Firts function to be called once the app fires
+    First function to be called once the app fires
 '''
-@app.route('/')
+@main.route('/')
 def index():
     title = 'pythonFlask App'
 
@@ -23,7 +23,7 @@ def index():
     search_movie = request.args.get('movie-query')
 
     if search_movie :
-        return redirect(url_for('search_this_movie',movie_name=search_movie))
+        return redirect(url_for('main.search_this_movie',movie_name=search_movie))
     else:
         return render_template('index.html',title = title, popular = popular_ones, upcoming = upcoming_movie , nowshowing=nowshowing)
 
@@ -32,12 +32,12 @@ def index():
 '''
     The about page . Rendered whenever about is added to path
 '''
-@app.route('/about')
+@main.route('/about')
 def about():
     message = "von MUTINDA"
     return render_template('about.html',message = message)
 
-@app.route('/movie/<int:movie_id>')
+@main.route('/movie/<int:movie_id>')
 def movie(movie_id):
     movie = get_movie(movie_id)
     title = f'{movie.title}'
@@ -50,7 +50,7 @@ def movie(movie_id):
 '''
     The page to be populated with searched movies
 '''
-@app.route('/search/<movie_name>')
+@main.route('/search/<movie_name>')
 def search_this_movie(movie_name):
 
     movies_list = movie_name.split(" ") 
@@ -63,7 +63,7 @@ def search_this_movie(movie_name):
     return render_template('searched.html', searched = searched , title = title , search = movie_name )
 
 
-@app.route('/movie/review/new/<int:id>' , methods = ['GET' , 'POST']) 
+@main.route('/movie/review/new/<int:id>' , methods = ['GET' , 'POST']) 
 def new_review(id):
     form = ReviewForm()
     movie = get_movie(id)
@@ -75,7 +75,7 @@ def new_review(id):
         new_review = Review(movie.id ,title,movie.poster,review)
         new_review.save_review()
 
-        return redirect(url_for('movie', movie_id = movie.id))
+        return redirect(url_for('.movie', movie_id = movie.id))
 
     title = f'{movie.title} Review'
 

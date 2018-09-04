@@ -57,12 +57,18 @@ def search_this_movie(movie_name):
 
     movie_format = "+".join(movies_list)
 
+    title = f" Search Results for {movie_name}"
+
+    # search_movie = request.args.get('movie-query')
     searched = search_movie(movie_format)
 
-    title = f" Search Results for {movie_name}"
     return render_template('searched.html', searched = searched , title = title , search = movie_name )
 
 
+
+'''
+    there should be docstring here my friend so that your code can be understood by others .
+'''
 @main.route('/movie/review/new/<int:id>' , methods = ['GET' , 'POST']) 
 def new_review(id):
     form = ReviewForm()

@@ -1,7 +1,5 @@
 import urllib.request , json
 from .models import Movie 
-# api_key = app.config['MOVIE_API_KEY']
-# api_key = 'd06d2ddbf8bcece8cb4d618c139b2bcf'
 
 api_key = None
 
